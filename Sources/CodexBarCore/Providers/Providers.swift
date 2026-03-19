@@ -1,4 +1,8 @@
-import Foundation
+curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz && \
+tar zxf swiftly-$(uname -m).tar.gz && \
+./swiftly init --quiet-shell-followup && \
+. "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh" && \
+hash -rimport Foundation
 import SweetCookieKit
 
 // swiftformat:disable sortDeclarations
@@ -26,6 +30,7 @@ public enum UsageProvider: String, CaseIterable, Sendable, Codable {
     case synthetic
     case warp
     case openrouter
+    case mistral
 }
 
 // swiftformat:enable sortDeclarations
@@ -54,6 +59,7 @@ public enum IconStyle: Sendable, CaseIterable {
     case synthetic
     case warp
     case openrouter
+    case mistral
     case combined
 }
 

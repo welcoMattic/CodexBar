@@ -56,6 +56,7 @@ public enum LogCategories {
     public static let tokenCost = "token-cost"
     public static let ttyRunner = "tty-runner"
     public static let vertexAIFetcher = "vertexai-fetcher"
+    public static let mistralUsage = "mistral-usage"
     public static let warpUsage = "warp-usage"
     public static let webkitTeardown = "webkit-teardown"
     public static let zaiSettings = "zai-settings"
