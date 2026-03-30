@@ -1,5 +1,5 @@
 ---
-summary: "Provider data sources and parsing overview (Codex, Claude, Gemini, Antigravity, Cursor, OpenCode, Alibaba Coding Plan, Droid/Factory, z.ai, Copilot, Kimi, Kilo, Kimi K2, Kiro, Warp, Vertex AI, Augment, Amp, Ollama, JetBrains AI, OpenRouter)."
+summary: "Provider data sources and parsing overview (Codex, Claude, Gemini, Antigravity, Cursor, OpenCode, Alibaba Coding Plan, Droid/Factory, z.ai, Copilot, Kimi, Kilo, Kimi K2, Kiro, Warp, Vertex AI, Augment, Amp, Ollama, JetBrains AI, OpenRouter, Mistral)."
 read_when:
   - Adding or modifying provider fetch/parsing
   - Adjusting provider labels, toggles, or metadata
@@ -39,6 +39,7 @@ until the session is invalid, to avoid repeated Keychain prompts.
 | Warp | API token (config/env) → GraphQL request limits (`api`). |
 | Ollama | Web settings page via browser cookies (`web`). |
 | OpenRouter | API token (config, overrides env) → credits API (`api`). |
+| Mistral | Console billing API via Ory Kratos session cookies (`web`). |
 
 ## Codex
 - Web dashboard (when enabled): `https://chatgpt.com/codex/settings/usage` via WebView + browser cookies.
@@ -181,5 +182,16 @@ until the session is invalid, to avoid repeated Keychain prompts.
 - Override base URL with `OPENROUTER_API_URL` env var.
 - Status: `https://status.openrouter.ai` (link only, no auto-polling yet).
 - Details: `docs/openrouter.md`.
+
+## Mistral
+- Session cookie (`ory_session_*`) from browser auto-import or manual `Cookie:` header.
+- CSRF token (`csrftoken` cookie) sent as `X-CSRFTOKEN` header.
+- Domain: `admin.mistral.ai`.
+- Billing endpoint: `GET https://admin.mistral.ai/api/billing/v2/usage?month=<M>&year=<Y>`.
+- Returns monthly token usage per model (completion, OCR, audio, connectors, fine-tuning) with pricing.
+- Cost computed client-side from token counts × per-model prices included in the response.
+- Currency from response (typically EUR).
+- Resets at end of calendar month.
+- Status: `https://status.mistral.ai` (link only, no auto-polling).
 
 See also: `docs/provider.md` for architecture notes.
